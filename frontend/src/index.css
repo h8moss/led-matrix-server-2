@@ -1,0 +1,26 @@
+/* Import Anek Devanagari */
+@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Anek Devanagari", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100 800;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+
+  color: white;
+  @apply bg-sky-950;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  @apply text-3xl mx-auto text-center p-2;
+}
+

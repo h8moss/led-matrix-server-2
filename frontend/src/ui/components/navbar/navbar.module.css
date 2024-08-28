@@ -1,0 +1,11 @@
+.navbar {
+  @apply flex flex-col h-full shadow-lg bg-slate-900 p-2;
+}
+
+.navbar a {
+  @apply p-2 hover:scale-105 transition-transform h-12;
+}
+
+.navbar svg {
+  @apply w-8 h-8 inline
+}
