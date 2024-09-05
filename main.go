@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"net/http"
+  "example.com/api"
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -14,15 +14,7 @@ func main() {
   router.Use(static.Serve("/", static.LocalFile("./frontend/dist/index.html", false)))
 
   // Setup route group for the API
-  api := router.Group("/api")
-  {
-    api.GET("/test", func(c *gin.Context) {
-      c.JSON(http.StatusOK, gin.H {
-        "message": "pong",
-      })
-    })
-  }
-
+  api.CreateApi(router)
   fmt.Println("Listening on port 8080")
   router.Run(":8080")
 }
