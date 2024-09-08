@@ -14,9 +14,9 @@ import (
 )
 
 type Config struct {
-        LedMatrixPath string
-        FifoPath      string
-        Port   			  int
+	LedMatrixPath string
+	FifoPath      string
+	Port          int
 }
 
 func main() {
@@ -43,20 +43,19 @@ func main() {
 	}
 
 	fmt.Println("Starting led matrix manager")
-  matrixManagerPath := config.LedMatrixPath + "/led-matrix-manager"
-  cmd := exec.Command("sudo", matrixManagerPath, config.FifoPath)
-  err = cmd.Start()
-  if err != nil {
-    panic(err)
-  }
+	matrixManagerPath := config.LedMatrixPath + "/led-matrix-manager"
+	cmd := exec.Command("sudo", matrixManagerPath, config.FifoPath)
+	err = cmd.Start()
+	if err != nil {
+		panic(err)
+	}
 
-  fmt.Println("Initializing server...")
-  router := gin.Default()
-  router.Use(static.Serve("/", static.LocalFile("./frontend/dist/index.html", false)))
+	fmt.Println("Initializing server...")
+	router := gin.Default()
+	router.Use(static.Serve("/", static.LocalFile("./frontend/dist/index.html", false)))
 
-  // Setup route group for the API
-  api.CreateApi(router)
-  fmt.Println("Listening on port 8080")
-  router.Run(":8080")
+	// Setup route group for the API
+	api.CreateApi(router)
+	fmt.Println("Listening on port 8080")
+	router.Run(":8080")
 }
-
