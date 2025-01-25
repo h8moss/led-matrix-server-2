@@ -1,30 +1,30 @@
-import LedMatrix from "../../services/led-matrix";
+import APIProvider from "../../../common/services/apiProvider";
 
 const quickActions = [
   {
     name: "Colors",
     className: "bg-green-400 hover:bg-green-500",
-    request: "" // TODO
+    module: "colors" // TODO
   },
   {
     name: "Game of life",
     className: "bg-blue-400 hover:bg-blue-500",
-    request: "" // TODO
+    module: "game-of-life" // TODO
   },
   {
     name: "Time date",
     className: "bg-purple-400 hover:bg-purple-500",
-    request: "" // TODO
+    module: "time-date" // TODO
   },
   {
     name: "Images",
     className: "bg-red-400 hover:bg-red-500",
-    request: "" // TODO
+    module: "images" // TODO
   },
   {
     name: "Idle",
     className: "bg-zinc-400 hover:bg-zinc-500",
-    request: "" // TODO
+    module: "off" // TODO
   }
 ]
 
@@ -46,6 +46,7 @@ const HomePage = () => {
               flex flex-col-reverse
               text-2xl
               rounded-md`}
+            onClick={() => APIProvider.instance.setMatrix(action.module, {})}
           >
             {action.name}
           </button>
