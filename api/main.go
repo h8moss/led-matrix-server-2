@@ -1,18 +1,21 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
-func CreateApi(router *gin.Engine) {
+func CreateApi(router *gin.Engine, channel chan string) {
 	api := router.Group("/api")
 	{
 		// PING ------------------------------------
 		api.GET("/ping", func(c *gin.Context) {
+
 			c.JSON(http.StatusOK, gin.H{
 				"message": "pong",
 			})
@@ -30,8 +33,23 @@ func CreateApi(router *gin.Engine) {
 			}
 			c.Data(http.StatusOK, gin.MIMEJSON, bytes)
 		})
+
 		api.POST("/config", func(c *gin.Context) {
-			// TODO: implement
+			body, err := c.GetRawData()
+
+			err1 := os.WriteFile("./frontend-config.json", body, 0666)
+
+			if err != nil || err1 != nil {
+				fmt.Printf("err: %v\n", err)
+				c.JSON(http.StatusOK, gin.H{
+					"error": err.Error(),
+				})
+				return
+			}
+
+			c.JSON(http.StatusOK, gin.H{
+				"message": "ok",
+			})
 		})
 
 		// MODULES ----------------------------------
@@ -47,6 +65,20 @@ func CreateApi(router *gin.Engine) {
 			}
 
 			fmt.Printf("slug: %v, body: %v\n", slug, string(body))
+
+			var bodyMap map[string]interface{}
+			json.Unmarshal(body, bodyMap)
+
+			var resultParts []string
+			resultParts = append(resultParts, slug)
+			for k, v := range bodyMap {
+				resultParts = append(resultParts, fmt.Sprintf("%s:%v", k, v))
+			}
+			var result = strings.Join(resultParts, " ")
+			fmt.Printf("%s", result)
+
+			channel <- result
+
 			c.JSON(http.StatusOK, gin.H{
 				"message": "ok",
 				"slug":    slug,
@@ -54,5 +86,4 @@ func CreateApi(router *gin.Engine) {
 			})
 		})
 	}
-
 }
