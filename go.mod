@@ -1,4 +1,4 @@
-module example.com
+module led-matrix-server.com
 
 go 1.22.1
 
