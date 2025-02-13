@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"example.com/api"
-	"example.com/communication"
+	"led-matrix-server.com/api"
+	"led-matrix-server.com/communication"
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -97,6 +97,9 @@ func main() {
 	fmt.Println("Initializing server...")
 	router := gin.Default()
 	router.Use(static.Serve("/", static.LocalFile("./frontend/dist", true)))
+	router.NoRoute(func(c *gin.Context) {
+		c.File("./frontend/dist/index.html")
+	})
 
 	// Setup route group for the API
 	api.CreateApi(router, pipeChan)
