@@ -13,7 +13,7 @@ const Navbar = () => {
       <a href="/custom"><FaCubes /> Custom</a>
       <a href="/files"><FaFile /> Files</a>
       <div className="flex-1" />
-      <a href="/configuration"><FaGear /> Configuration</a>
+      <a href="/config"><FaGear /> Configuration</a>
     </nav>
   );
 }
