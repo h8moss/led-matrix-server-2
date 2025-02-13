@@ -2,7 +2,7 @@
 led-matrix-server.com
 
 # config
-config.jso
+config.json
 
 # Personal build command
 build.sh
